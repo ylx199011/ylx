@@ -1,2 +1,28 @@
-This is my first mini-project. Just to record my notes and codes during the
-study of Machine Learning.
+## Overview
+
+
+**AutoCheckC** is mainly written in Python (with some bash shell as complements)
+to automatically check homework of C code and running screenshot.
+
+
+## System requirements
+
+
+- A not too ancient Linux with Python 2.7 installed (Ubuntu 16.04  is recommended).
+
+
+## Usage
+
+
+
+
+
+## Rating rules
+
+
+Codes and screenshots delivered & compiled through - A
+Codes and screenshots delivered & compiled failure - B
+Only codes delivered & compiled through            - C
+Only codes delivered & compiled failure            - D
+Only screenshots delivered                         - D
+Otherwise                                          - E
