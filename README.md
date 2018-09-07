@@ -23,20 +23,20 @@ cd myroot; python auto_collect.py week_num   # set week_num=1,2,3...
 5. Check if there is a file named "grade.csv" and see what the grades read.
 
 **Note:** 
-1. Here we only compile the codes. If you'd like to risk your computer to run the codes,
+- Here we only compile the codes. If you'd like to risk your computer to run the codes,
 you'll have to run "auto_compile_run.sh" as follows.
 ```bash
 cd myroot; bash auto_compile_run.sh
 ```
-2. Change permisions if needed.
+- Change permisions if needed.
 ```bash
 chmod 777 auto_collect.py auto_compile_run.sh
 ```
 ## Rating rules
 
-Codes and screenshots delivered & compiled through - A
-Codes and screenshots delivered & compiled failure - B
-Only codes delivered & compiled through            - C
-Only codes delivered & compiled failure            - D
-Only screenshots delivered                         - D
-Otherwise                                          - E
+- Codes and screenshots delivered & compiled through - A
+- Codes and screenshots delivered & compiled failure - B
+- Only codes delivered & compiled through            - C
+- Only codes delivered & compiled failure            - D
+- Only screenshots delivered                         - D
+- Otherwise                                          - E
