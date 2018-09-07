@@ -28,6 +28,10 @@ you'll have to run "auto_compile_run.sh" as follows.
 ```bash
 cd myroot; bash auto_compile_run.sh
 ```
+Or, if you want to save the running results,
+```bash
+cd myroot; bash auto_compile_run.sh > run_results.txt 2>&1
+```
 - Change permisions if needed.
 ```bash
 chmod 777 auto_collect.py auto_compile_run.sh

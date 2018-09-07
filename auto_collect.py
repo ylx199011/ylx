@@ -3,7 +3,7 @@
 
 from os import listdir, walk, makedirs, devnull
 from os.path import isdir, isfile, join, splitext
-from shutil import copy, rmtree, move
+from shutil import copy, rmtree
 from ntpath import basename
 from itertools import izip_longest as izl
 import csv
@@ -23,8 +23,8 @@ except IndexError:
 
 
 homework_path="homework"   # Where to find homework files
-name='name.csv'              # List of No and names. Fill it by hand then leave it alone
-grade='grade.csv'
+name='name.csv'            # List of No and names. Fill it by hand then leave it alone
+grade='grade.csv'          # List of grades
 
 
 def collect_files():
@@ -38,10 +38,11 @@ def collect_files():
         print 'Please unzip homework into directory '+homework_path+'!'
         exit()
 
-    if isfile(grade):            # Backup grade file of last time
-        gs=grade.split('.')
-        copy(grade, 'backup/week'+str(week)+'_'+gs[0]+'_'+
-                time.strftime("%y-%m-%d_%H-%M-%S", time.localtime())+'.'+gs[1])
+    for f in [grade,'run_results.txt']:
+        if isfile(f):            # Backup grade and running_results of last time
+            fs=f.split('.')
+            copy(f, 'backup/week'+str(week)+'_'+fs[0]+'_'+
+                    time.strftime("%y-%m-%d_%H-%M-%S", time.localtime())+'.'+fs[1])
 
     codefiles=[]; imgfiles=[]    # Collect codes and images, copy to code/ and img/
     for root, dirs, files in walk(homework_path):
