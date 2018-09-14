@@ -14,14 +14,6 @@ import re
 import subprocess as sp
 
 
-try:
-    week=int(sys.argv[1])
-    print "Homework of week: ", week
-except IndexError:
-    print "Please specify the week!"
-    exit()
-
-
 homework_path="homework"   # Where to find homework files
 name='name.csv'            # List of No and names. Fill it by hand then leave it alone
 grade='grade.csv'          # List of grades
@@ -39,15 +31,15 @@ def collect_files():
         exit()
 
     for f in [grade,'run_results.txt']:
-        if isfile(f):            # Backup grade and running_results of last time
+        if isfile(f):            # Backup grade file of last time
             fs=f.split('.')
-            copy(f, 'backup/week'+str(week)+'_'+fs[0]+'_'+
+            copy(f, 'backup/'+fs[0]+'_'+
                     time.strftime("%y-%m-%d_%H-%M-%S", time.localtime())+'.'+fs[1])
 
     codefiles=[]; imgfiles=[]    # Collect codes and images, copy to code/ and img/
     for root, dirs, files in walk(homework_path):
         for f in files:
-            if f.lower().endswith(('.png', '.jpg', '.jpeg')):
+            if f.lower().endswith(('.png', '.jpg', '.jpeg', 'docx')):
                 imgf=join(root,f)
                 imgfiles.append(imgf)
                 copy(imgf,"img")
@@ -115,44 +107,34 @@ def rate():
         for cf in codefiles:     # find codes for current student
             bn, w=get_basename(cf)
             if bn[:2]==no:       # got it
-                if w==week:      # is homework for this week?
-                    f_num[0]+=1
-                    code='code/'+basename(cf)  # Switch to code directory
-                    returned_value=exec_code(code, bn)
-                    if returned_value==0:      # compile success
-                        if f_num[0]==1:        # first compile rate C
-                            grades.append('C')
-                        else:                  # more than one compile only rate C
-                            grades[-1]='C'
-                    else:                      # compile failure
-                        if f_num[0]==1:
-                            grades.append('D') # first compile rate D
-                        else:
-                            grades[-1]='D'     # more than one compile rate D
-                        print n[0], "compile failure!"
-                else:
-                    grades.append('E')
-                    print n[0], "codes are not in the same week!"
+                f_num[0]+=1
+                code='code/'+basename(cf)  # Switch to code directory
+                returned_value=exec_code(code, bn)
+                if returned_value==0:      # compile success
+                    if f_num[0]==1:        # first compile rate C
+                        grades.append('C')
+                else:                      # compile failure
+                    if f_num[0]==1:
+                        grades.append('D') # first compile rate D
+                    print n[0], "compile failure!"
         if f_num[0]==0:
+            grades.append('F')
             print n[0], "didn't deliver codes. "
 
         for imf in imgfiles:     # find images for current student
             bn, w=get_basename(imf)
             if bn[:2]==no:       # got it
-                if w==week:      # is for this week?
-                    f_num[1]+=1
-                    if grades[-1]=='C':
-                        grades[-1]='A'   # codes success plus images rate A
-                    elif grades[-1]=='D':
-                        grades[-1]='B'   # codes failure plus images rate B
-                    elif grades[-1]=='E':
-                        grades[-1]='D'   # no codes plus images rate D
-                    else:
-                        print n[0], "codes didn't rate C, D or E!"
+                f_num[1]+=1
+                if grades[-1]=='C':
+                    grades[-1]='A'   # codes success plus images rate A
+                elif grades[-1]=='D':
+                    grades[-1]='B'   # codes failure plus images rate B
+                elif grades[-1]=='F':
+                    grades[-1]='E'   # no codes plus images rate E
                 else:
-                    print n[0], "images are not in the same week!"
-                if f_num[1]>0:
-                    break    # only check the existence of one image
+                    print n[0], "codes didn't rate C, D or F!"
+            if f_num[1]>0:
+                break    # only check the existence of one image
         if f_num[1]==0:
             print n[0], "didn't deliver images. "
 

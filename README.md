@@ -18,7 +18,7 @@ in one step.
 3. Create a folder named "homework" under "myroot". Unzip homework into it.
 4. 
 ```bash
-cd myroot; python auto_collect.py week_num   # set week_num=1,2,3...
+cd myroot; python auto_collect.py 
 ```
 5. Check if there is a file named "grade.csv" and see what the grades read.
 
@@ -42,5 +42,5 @@ chmod 777 auto_collect.py auto_compile_run.sh
 - Codes and screenshots delivered & compiled failure - B
 - Only codes delivered & compiled through            - C
 - Only codes delivered & compiled failure            - D
-- Only screenshots delivered                         - D
-- Otherwise                                          - E
+- Only screenshots delivered                         - E
+- Otherwise                                          - F
